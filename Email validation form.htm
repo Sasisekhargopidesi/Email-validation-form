@@ -1,0 +1,146 @@
+
+<html>
+  <head>
+    <title>Validation checking form</title>
+    <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 130%;
+        background-image: url(login-background.avif);
+        background-size: cover;
+      }
+      .wrapper {
+        width: 550px;
+        margin: 0 auto;
+        align-items: center;
+        margin-top: 50px;
+        border: 2px solid steelblue;
+        border-radius: 10px;
+        padding: 50px 50px 50px 50px;
+      }
+      .form-element {
+        color: skyblue;
+
+        padding-top: 10px;
+      }
+
+      label {
+        width: 200px;
+        float: left;
+        position: relative;
+        top: 12px;
+      }
+      input {
+        width: 320px;
+        font-size: 25px;
+        border: 1px solid steelblue;
+        border-radius: 5px;
+        padding: 5px 5px 12px 5px;
+      }
+      input:hover {
+        border: 1px solid steelblue;
+      }
+      #submitbutton {
+        color: steelblue;
+        width: 130px;
+        margin-left: 200px;
+        margin-top: 10px;
+        height: 45px;
+        border-radius: 10px;
+        font-size: 1rem;
+        border: 2px solid steelblue;
+      }
+      #submitbutton:hover {
+        background-color: rgb(41, 57, 63);
+      }
+
+      .errors {
+        display: none;
+        color: red;
+        font-size: 1.5rem;
+        border: 2px solid red;
+      width: fit-content;
+      
+        
+        border-radius: 10px;
+        
+    
+      
+      }
+      .success {
+        display: none;
+        color: green;
+        font-size: 1.5rem;
+        border: 2px solid green;
+        width:fit-content;
+        
+        border-radius: 10px;
+        
+      
+      }
+    </style>
+  </head>
+  <body>
+    <div class="errors"></div>
+    <div class="success"></div>
+    <div class="wrapper">
+      <div class="form-element">
+        <label for="Email">Email</label>
+        <input type="email" id="Email" name="Email" />
+      </div>
+      <div class="form-element">
+        <label for="Phone-number">Phone-Number</label>
+        <input type="text" id="Phone-number" name="Phone-number" />
+      </div>
+      <div class="form-element">
+        <label for="Password">Password</label>
+        <input type="password" id="Password" name="Phone-number" />
+      </div>
+      <div class="form-element">
+        <label for="Confirm-Password">Confirm-Password</label>
+        <input type="password" id="Confirm-Password" name="Confirm-Password" />
+      </div>
+
+      <button type="submit" id="submitbutton">Submit</button>
+    </div>
+    <script>
+      function isEmail(email) {
+        var regex =
+          /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+      }
+      $("#submitbutton").click(function () {
+        $(".success").css('display','none');
+        $(".errors").css('display','none');
+        var errormessage = "";
+        var missingfeild = "";
+        if ($("#Email").val() == "") {
+          missingfeild += "<p>Email is not filled</p>";
+        }
+        if (isEmail($("#Email").val()) == false) {
+          errormessage += "<p>Email id not valid</p>";
+        }
+        if ($("#Phone-number").val() == "") {
+          missingfeild += "<p>Password not filled</p>";
+        }
+        if ($("#Password").val() == "") {
+          missingfeild += "<p>Phone number not filled</p>";
+        }
+        if ($.isNumeric($("#Phone-number").val()) == false) {
+          errormessage += "<p>Phone number is not valid</p>";
+        }
+        if ($("#Password").val() != $("#Confirm-Password").val()) {
+          errormessage += "<p>Password does not match</p>";
+        }
+        if (errormessage == "") {
+          $(".success").css('display','block');
+          $(".success").html("you are registered");
+        } else {
+          $(".errors").html(errormessage + missingfeild);
+          $(".errors").css('display','block');
+        }
+      });
+    </script>
+  </body>
+</html>
